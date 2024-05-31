@@ -1,0 +1,67 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .navbar-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .menu-button {
+    font-size: 24px;
+    margin-right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .navbar-title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .navbar-center {
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-button {
+    margin-right: 20px;
+    padding: 10px 20px;
+    background: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+  
+  .nav-button.active {
+    border: 1px solid #007bff;
+    border-radius: 5px;
+  }
+  
+  .nav-button.add-contact {
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    margin-left: auto;
+  }
+  
+  .navbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  
