@@ -19,7 +19,7 @@ const NavBar = () => {
           </button>
         </nav>
         <div className="navbar-right">
-          <img src="./src/moon.jpg" alt="Profile" className="profile-image" />
+          <a href="#"><img src="./src/moon.jpg" alt="Profile" className="profile-image" /></a>
         </div>
       </header>
       <Outlet />

@@ -1,0 +1,27 @@
+.search {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  input {
+    width: 180px;
+  }
+  ul {
+    display: inline;
+    justify-content: center;
+  }
+  .list{
+    width: 180px;
+    border-bottom: 1px solid gray;
+    display: inline-block;
+  }
+  h4{
+    font-family: cursive;
+    font-size: small;
+  }
+  button{
+    display: inline;
+    margin-bottom: 2px;
+    color: white;
+    background-color: black;
+  }
