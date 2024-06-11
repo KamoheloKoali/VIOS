@@ -11,9 +11,11 @@
     justify-content: center;
   }
   .list{
-    width: 180px;
-    border-bottom: 1px solid gray;
     display: inline-block;
+    width: 180px;
+    background-color: whitesmoke;
+    
+    
   }
   h4{
     font-family: cursive;
@@ -25,3 +27,4 @@
     color: white;
     background-color: black;
   }
+

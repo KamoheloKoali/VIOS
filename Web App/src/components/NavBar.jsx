@@ -1,27 +1,41 @@
-import { Outlet, Link } from "react-router-dom";
+import { useLocation, Outlet, Link } from "react-router-dom";
 
 const NavBar = () => {
+  const location = useLocation();
+
   return (
     <>
       <header className="navbar">
-        <div className="navbar-left">
-          <h1 className="navbar-title">Eyes for the blind</h1>
+        <div className="upper-nav">
+          <div className="navbar-left">
+            <h1 className="navbar-title">Eyes for the blind</h1>
+          </div>
+          <div className="navbar-right">
+            <img src="./src/moon.jpg" alt="Profile" className="profile-image" />
+            <Link to="/Profile"></Link>
+          </div>
         </div>
         <nav className="navbar-center">
-          <button className="nav-button active">
-            <Link to="/">Home</Link>
-          </button>
-          <button className="nav-button">
-            <Link to="/Contacts">Contacts</Link>
-          </button>
+          <div className="right">
+          <Link to="/">
+            <button className={`nav-button home ${location.pathname === '/' ? 'active' : ''}`}>
+              Home
+            </button>
+            </Link>
+            <Link to="/Contacts">
+            <button className={`nav-button contact ${location.pathname === '/Contacts' ? 'active' : ''}`}>
+              Contacts
+            </button>
+            </Link>
+          </div>
+          <div className="left">
           <button className="nav-button add-contact">
             <Link to="/AddContact">+ add contact</Link>
           </button>
+          </div>
         </nav>
-        <div className="navbar-right">
-          <a href="#"><img src="./src/moon.jpg" alt="Profile" className="profile-image" /></a>
-        </div>
       </header>
+      <body></body>
       <Outlet />
     </>
   );
