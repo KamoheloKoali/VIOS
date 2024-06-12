@@ -11,7 +11,7 @@ const AddContact = () => {
         <input type="text" placeholder="Name" />
         <input type="number" placeholder="Phone number" />
         <input type="text" placeholder="Category" />
-        <div id="button"><button>ADD</button></div>
+        <div><button id="button">ADD</button></div>
       </div>
       
       

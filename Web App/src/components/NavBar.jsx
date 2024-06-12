@@ -11,8 +11,8 @@ const NavBar = () => {
             <h1 className="navbar-title">Eyes for the blind</h1>
           </div>
           <div className="navbar-right">
-            <img src="./src/moon.jpg" alt="Profile" className="profile-image" />
-            <Link to="/Profile"></Link>
+
+            <Link to="/profile"><img src="./src/moon.jpg" alt="Profile" className="profile-image" /></Link>
           </div>
         </div>
         <nav className="navbar-center">

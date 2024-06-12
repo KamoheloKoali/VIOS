@@ -5,6 +5,7 @@ import Home from './components/Home';
 import AddContact from './components/AddContact';
 import Contacts from './components/Contacts';
 import NavBar from './components/NavBar';
+import Profile from './components/profile';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="/AddContact" element={<AddContact />} />
           <Route path="/Contacts" element={<Contacts />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>
     </BrowserRouter>

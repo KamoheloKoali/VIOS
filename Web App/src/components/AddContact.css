@@ -3,6 +3,7 @@ h3{
 
 }
 input{
+    width: 198px;
     margin: 2px;
     justify-content: center;
     display: block;
@@ -22,5 +23,18 @@ input{
     justify-content: center;
   }
 
+  #button{
+    color: white;
+    width: 192px;
+    border-radius: 2px;
+    border: none;
+    background-color: black;
+    opacity: 70%;
+  }
+#button:hover {
+  opacity: 100%;
+  transition: opacity 1s, color 1s;
+  cursor: pointer;
+}
 
 
