@@ -8,15 +8,15 @@ const Profile = () => {
         <h1 style={styles.title}>Profile</h1>
       </header>
       <div style={styles.profileImageContainer}>
-        <img src="./src/moon.jpg" alt="Profile" style={styles.profileImage} />
+        <img src="./src/lgo.png" alt="Profile" style={styles.profileImage} />
         <button style={styles.editButton}>Edit profile image</button>
       </div>
       <div style={styles.infoContainer}>
-        <ProfileInfo label="Name" value="Helena Hills" />
-        <ProfileInfo label="Username" value="@username" />
-        <ProfileInfo label="Email" value="name@domain.com" />
+        <ProfileInfo label="Name" value="Tumelo Nkoe" />
+        <ProfileInfo label="Username" value="Tumelo003" />
+        <ProfileInfo label="Email" value="nkoetumelo03@gmail" />
         <ProfileLinks label="Links" links={['website.net', 'mylink.net', 'yourlink.net']} />
-        <ProfileInfo label="Bio" value="A description of this user." />
+        <ProfileInfo label="Bio" value="Front-end developer." />
       </div>
     </div>
   );

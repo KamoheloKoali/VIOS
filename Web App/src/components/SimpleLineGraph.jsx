@@ -1,6 +1,6 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
-import 'chart.js/auto';  // Import the necessary chart.js module
+import 'chart.js/auto';
 
 const SimpleLineGraph = () => {
   const data = {
@@ -29,7 +29,7 @@ const SimpleLineGraph = () => {
       y: {
         title: {
           display: true,
-          text: 'Value',
+          text: 'Value/bpm',
         },
       },
     },
