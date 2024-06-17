@@ -2,8 +2,9 @@
 # `pip install assemblyai` (Windows)
 
 import assemblyai as aai
+import os
 
-aai.settings.api_key = "ba975d68690a46e3a497c548d9d02856"
+aai.settings.api_key = os.getenv("ASSEMBLYAI_API_KEY")
 transcriber = aai.Transcriber()
 
 def convert(file_path):
