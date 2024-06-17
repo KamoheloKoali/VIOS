@@ -1,0 +1,5 @@
+{
+    "bitoAI.codeCompletion.enableAutoCompletion": true,
+    "bitoAI.codeCompletion.enableCommentToCode": true,
+    "bitoAI.codeCompletion.setAutoCompletionTriggerLogic": 750
+}

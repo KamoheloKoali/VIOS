@@ -19,7 +19,7 @@ def home():
     return "Welcome to VIOS"
 
 @app.route('/speech', methods=["POST"])
-def tts():
+def speech():
     if 'file' not in request.files:
         return jsonify({"error": "No file part in the request"}), 400
     file = request.files['file']

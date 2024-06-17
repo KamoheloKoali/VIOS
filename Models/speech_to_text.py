@@ -6,9 +6,10 @@ import assemblyai as aai
 aai.settings.api_key = "ba975d68690a46e3a497c548d9d02856"
 transcriber = aai.Transcriber()
 
-transcript = transcriber.transcribe("./Blxckie-Ft-A-Reece-Sneaky-(TrendyBeatz.com).mp3")
-# transcript = transcriber.transcribe("./my-local-audio-file.wav")
+def convert(file_path):
+    transcript = transcriber.transcribe(file_path)
+    # transcript = transcriber.transcribe("./my-local-audio-file.wav")
 
-print(transcript.text)
+    return transcript.text
 
 #used whisper ai
