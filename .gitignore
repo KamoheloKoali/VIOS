@@ -1,2 +1,4 @@
 .vscode
 .dist
+miniconda3
+*__pycache__

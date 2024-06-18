@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
 from werkzeug.utils import secure_filename
 import os
+import sys
+
 from API.speech_to_text_endpoint import speech_to_text
-from API.image_read_endpoint import read_image
-from API.object_detection_endpoint import object_detection
+# from API.image_read_endpoint import read_image
+# from API.object_detection_endpoint import object_detection
 
 app = Flask(__name__)
 

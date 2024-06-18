@@ -4,7 +4,7 @@
 import assemblyai as aai
 import os
 
-aai.settings.api_key = os.getenv("ASSEMBLYAI_API_KEY")
+aai.settings.api_key = "ba975d68690a46e3a497c548d9d02856"
 transcriber = aai.Transcriber()
 
 def convert(file_path):
