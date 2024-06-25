@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route,  } from "react-router-dom";
 import './App.css'; 
 import Home from './components/Home';
 import AddContact from './components/AddContact';
@@ -9,6 +9,7 @@ import Profile from './components/profile';
 
 const App = () => {
   return (
+    
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<NavBar />}>

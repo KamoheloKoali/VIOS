@@ -5,16 +5,7 @@ const Contacts = () => {
       <div className='search'>
       <input type="text" placeholder='Search' />
 
-      </div>  
-      <div id='contact'>
-         
-      </div>
-        
-          
-       
-
-     
-
+      </div> 
     </>
   )
 }

@@ -1,18 +1,27 @@
 import { useLocation, Outlet, Link } from "react-router-dom";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 
 const NavBar = () => {
   const location = useLocation();
 
   return (
     <>
+      
+      
+    
       <header className="navbar">
         <div className="upper-nav">
           <div className="navbar-left">
             <h1 className="navbar-title">Eyes for the blind</h1>
           </div>
           <div className="navbar-right">
-
-            <Link to="/profile"><img src="./src/lgo.png" alt="Profile" className="profile-image" /></Link>
+          
+            <SignedOut>
+        <SignInButton />
+      </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
           </div>
         </div>
         <nav className="navbar-center">
