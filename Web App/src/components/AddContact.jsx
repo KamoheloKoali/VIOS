@@ -1,8 +1,8 @@
-import NavBar from "./NavBar"
 import './AddContact.css'
 
 
 const AddContact = () => {
+
   return (
     <>
       <h3>Add Contact</h3>

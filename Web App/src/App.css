@@ -118,5 +118,13 @@
   }
 
 
+  .signin {
+    display: flex;
+    justify-content: center;
+    /* width: 20px; */
+    border: black 2px solid;
+  }
+
+
   
   
