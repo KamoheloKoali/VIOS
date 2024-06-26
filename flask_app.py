@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from werkzeug.utils import secure_filename
 import os
 import sys
@@ -9,6 +9,9 @@ from API.speech_to_text_endpoint import speech_to_text
 
 app = Flask(__name__)
 
+react_folder = 'Web App'
+directory= os.getcwd()+ f'/{react_folder}/build/static'
+
 # Define allowed extensions
 ALLOWED_IMAGE_EXTENSIONS = {'jpeg', 'jpg', 'png'}
 ALLOWED_AUDIO_EXTENSIONS = {'mp3'}
@@ -17,8 +20,19 @@ def allowed_file(filename, allowed_extensions):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_extensions
 
 @app.route('/')
-def home():
-    return "Welcome to VIOS"
+def index():
+    ''' User will call with with thier id to store the symbol as registered'''
+    path= os.getcwd()+ f'/{react_folder}/build'
+    print(path)
+    return send_from_directory(directory=path,path='index.html')
+
+#
+@app.route('/static/<folder>/<file>')
+def css(folder,file):
+    ''' User will call with with thier id to store the symbol as registered'''
+    
+    path = folder+'/'+file
+    return send_from_directory(directory=directory,path=path)
 
 @app.route('/speech', methods=["POST"])
 def speech():
@@ -71,5 +85,5 @@ def handle_text():
     # Example response:
     return jsonify({"received_data": data}), 200
 
-if __name__ == "__main__":
-    app.run()
+if __name__ == '__main__':
+    app.run(debug=True, threaded=True)
