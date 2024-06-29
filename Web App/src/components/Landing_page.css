@@ -1,0 +1,168 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+  }
+  
+  .logo {
+    
+    size: 50px;
+  }
+  .logoo{
+    width: 20px;
+    
+  }
+  
+  .nav a {
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+  }
+  .nav a:hover{
+    color: #007bff;
+  }
+  
+  .hero {
+    background-image: url(./src/img/glass.crdownload);
+    background-size: 1000px;
+    background-repeat: no-repeat;
+    background-color: #f4f4f4;
+    padding: 50px;
+    text-align: center;
+  }
+  
+  .hero-content h1 {
+    margin-top: 0px;
+    color: white;
+    font-size: 48px;
+  }
+  
+  .hero-content p {
+    font-size: 18px;
+    color: #000435;
+  }
+  .form{
+    justify-self: center;
+  }
+  
+  .discover-btn {
+    padding: 10px 20px;
+    background-color: #ff4b2b;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .hero-stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #009688;
+    color: white;
+  }
+  
+  .about-us, .services, .our-work, .awards, .our-team, .process, .brands, .testimonials, .footer {
+    padding: 50px;
+    text-align: center;
+  }
+  
+
+  
+  .services-list {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .service-item {
+    width: 30%;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+  }
+  
+  .team-member {
+    display: inline-block;
+    width: 20%;
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+  }
+  
+  .testimonial {
+    margin: 20px 0;
+  }
+  
+  .footer {
+    background-color: #333;
+    color: white;
+  }
+  
+  .footer-nav a {
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+  }
+  
+  input{
+    display: block;
+    margin-left: 40%;
+    width: 250px;
+    height: 30px;
+    font-size: 15px;
+    opacity: 70%;
+    transition: 0.5s;
+
+  }
+  select{
+    display: block;
+    margin-left: 40%;
+    width: 258px;
+    height: 37px;
+    font-size: 15px;
+    opacity: 70%;
+    transition: 0.5s;
+    font-family: cursive;
+  }
+  input:hover{
+    opacity: 100%;
+  }
+  .bttn{
+    font-size: 15px;
+    color: white;
+    width: 260px;
+    height: 40px;
+    background-color: #007bff;
+    opacity: 70%;
+    margin-left: 40%;
+    
+  }
+  .bttn:hover{
+    color: black;
+    background-color: orange;
+  }
+  .theimage{
+    width: 400px;
+  }
+  .theimage:hover {
+    width: 400px; /* Adjust size as needed */
+    height: auto;
+    animation: shiver 1s infinite;
+}
+
+@keyframes shiver {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-2px, -2px); }
+    50% { transform: translate(2px, -2px); }
+    75% { transform: translate(-2px, 2px); }
+    100% { transform: translate(2px, 2px); }
+}
+
+

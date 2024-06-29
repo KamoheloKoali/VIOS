@@ -1,25 +1,36 @@
-.search {
-    max-width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  input {
-    width: 180px;
-  }
-  ul {
-    display: inline;
-    justify-content: center;
-  }
-  .list{
-    display: inline-block;
-    width: 180px;
-    background-color: whitesmoke;
-    
-    
-  }
-  h4{
-    font-family: cursive;
-    font-size: small;
-  }
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  margin: none;
+}
 
+.contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.contact-name {
+  flex: 1;
+}
+
+.call-button,
+.details-button,
+.menu-button {
+  margin-left: 10px;
+}
+
+.contact-date {
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+button{
+  background-color: white;
+  color: black;
+  border: 0.5px solid black;
+  cursor: pointer;
+}
 
