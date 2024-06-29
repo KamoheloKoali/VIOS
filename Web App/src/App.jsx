@@ -6,7 +6,8 @@ import AddContact from './components/AddContact';
 import Contacts from './components/Contacts';
 import NavBar from './components/NavBar';
 import Profile from './components/profile';
-import Sign_in from './components/Sign_in';
+import Landing_page from './components/Landing_page';
+
 
 const App = () => {
   return (
@@ -15,7 +16,7 @@ const App = () => {
     
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<NavBar />}>
+        <Route path="/" element={<Landing_page />}>
           <Route index element={<Home />} />
           <Route path="/AddContact" element={<AddContact />} />
           <Route path="/Contacts" element={<Contacts />} />
@@ -28,9 +29,6 @@ const App = () => {
 
 
 };
-
- 
-
 
 export default App;
 

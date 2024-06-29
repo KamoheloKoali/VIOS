@@ -41,7 +41,7 @@ const NavBar = () => {
           </div>
           <div className="left">
             <button className="nav-button add-contact">
-              <Link to="/AddContact">+ add contact</Link>
+              <Link to="/AddContact">+ add contact</Link>                               
             </button>
           </div>
         </nav>
