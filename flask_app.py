@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from werkzeug.utils import secure_filename
 import os
 import sys
@@ -9,6 +9,9 @@ from API.speech_to_text_endpoint import speech_to_text
 
 app = Flask(__name__)
 
+react_folder = 'Web App'
+directory= os.getcwd()+ f'/{react_folder}/build/static'
+
 # Define allowed extensions
 ALLOWED_IMAGE_EXTENSIONS = {'jpeg', 'jpg', 'png'}
 ALLOWED_AUDIO_EXTENSIONS = {'mp3'}
@@ -16,9 +19,20 @@ ALLOWED_AUDIO_EXTENSIONS = {'mp3'}
 def allowed_file(filename, allowed_extensions):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_extensions
 
-@app.route('/')
-def home():
-    return "Welcome to VIOS"
+@app.route('/', methods=["GET"])
+def index():
+    ''' User will call with with thier id to store the symbol as registered'''
+    path= os.getcwd()+ f'/{react_folder}/dist'
+    print(path)
+    return send_from_directory(directory=path,path='index.html')
+
+#
+@app.route('/static/<folder>/<file>', methods=["GET"])
+def css(folder,file):
+    ''' User will call with with thier id to store the symbol as registered'''
+    
+    path = folder+'/'+file
+    return send_from_directory(directory=directory,path=path)
 
 @app.route('/speech', methods=["POST"])
 def speech():
@@ -34,42 +48,42 @@ def speech():
     else:
         return jsonify({"error": "Invalid file type"}), 400
 
-@app.route('/obj_detect', methods=["POST"])
-def detect_obj():
-    if 'file' not in request.files:
-        return jsonify({"error": "No file part in the request"}), 400
-    file = request.files['file']
-    if file and allowed_file(file.filename, ALLOWED_IMAGE_EXTENSIONS):
-        filename = secure_filename(file.filename)
-        filepath = os.path.join("/tmp", filename)
-        file.save(filepath)
-        result = object_detection(filepath)
-        return jsonify(result)
-    else:
-        return jsonify({"error": "Invalid file type"}), 400
+# @app.route('/obj_detect', methods=["POST"])
+# def detect_obj():
+#     if 'file' not in request.files:
+#         return jsonify({"error": "No file part in the request"}), 400
+#     file = request.files['file']
+#     if file and allowed_file(file.filename, ALLOWED_IMAGE_EXTENSIONS):
+#         filename = secure_filename(file.filename)
+#         filepath = os.path.join("/tmp", filename)
+#         file.save(filepath)
+#         result = object_detection(filepath)
+#         return jsonify(result)
+#     else:
+#         return jsonify({"error": "Invalid file type"}), 400
 
-@app.route('/image_read', methods=["POST"])
-def image_read():
-    if 'file' not in request.files:
-        return jsonify({"error": "No file part in the request"}), 400
-    file = request.files['file']
-    if file and allowed_file(file.filename, ALLOWED_IMAGE_EXTENSIONS):
-        filename = secure_filename(file.filename)
-        filepath = os.path.join("/tmp", filename)
-        file.save(filepath)
-        result = read_image(filepath)
-        return jsonify(result)
-    else:
-        return jsonify({"error": "Invalid file type"}), 400
+# @app.route('/image_read', methods=["POST"])
+# def image_read():
+#     if 'file' not in request.files:
+#         return jsonify({"error": "No file part in the request"}), 400
+#     file = request.files['file']
+#     if file and allowed_file(file.filename, ALLOWED_IMAGE_EXTENSIONS):
+#         filename = secure_filename(file.filename)
+#         filepath = os.path.join("/tmp", filename)
+#         file.save(filepath)
+#         result = read_image(filepath)
+#         return jsonify(result)
+#     else:
+#         return jsonify({"error": "Invalid file type"}), 400
 
-@app.route('/text', methods=["POST"])
-def handle_text():
-    if not request.is_json:
-        return jsonify({"error": "Request must be JSON"}), 400
-    data = request.get_json()
-    # Process the JSON data as needed
-    # Example response:
-    return jsonify({"received_data": data}), 200
+# @app.route('/text', methods=["POST"])
+# def handle_text():
+#     if not request.is_json:
+#         return jsonify({"error": "Request must be JSON"}), 400
+#     data = request.get_json()
+#     # Process the JSON data as needed
+#     # Example response:
+#     return jsonify({"received_data": data}), 200
 
-if __name__ == "__main__":
-    app.run()
+if __name__ == '__main__':
+    app.run(debug=True, threaded=True)
