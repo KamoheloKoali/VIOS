@@ -16,7 +16,11 @@
   flex: 1;
 }
 
-.call-button,
+.call-button,.details-button{
+  margin-left: 10px;
+  border: 0.5px solid gray;
+  border-radius: 4px;
+}
 .details-button,
 .menu-button {
   margin-left: 10px;

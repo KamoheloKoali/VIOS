@@ -1,9 +1,10 @@
+// main.js
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Sign_in from './components/Sign_in'
 import './index.css'
 import { ClerkProvider } from '@clerk/clerk-react'
 import App from './App'
+import './App.css'; 
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
