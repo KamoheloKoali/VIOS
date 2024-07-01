@@ -18,12 +18,13 @@ ALLOWED_AUDIO_EXTENSIONS = {'mp3'}
 def allowed_file(filename, allowed_extensions):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_extensions
 
-@app.route('/<number>', methods=["GET"])
+@app.route('/<id>/<number>', methods=["GET"])
 def index(number):
     data ={}
-    data["heart_rate"] = number
+    data[id] = number
     with open("heart_rate.json", "w", encoding="utf-8") as file:
-        json.dump(file, data)
+        json.dump(data, file)
+    return jsonify({"data entered": data})
 
     # ''' Serve the main page '''
     # path = os.path.join(os.getcwd(), react_folder, 'dist')
