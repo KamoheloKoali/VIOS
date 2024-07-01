@@ -1,1 +1,0 @@
-<h1 align="center">Web Application for IoT-project</h1>
