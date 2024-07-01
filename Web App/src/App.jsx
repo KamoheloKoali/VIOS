@@ -6,13 +6,17 @@ import AddContact from './components/AddContact';
 import Contacts from './components/Contacts';
 import NavBar from './components/NavBar';
 import Profile from './components/profile';
+import Landing_page from './components/Landing_page';
+
 
 const App = () => {
   return (
+    <>
+    
     
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<NavBar />}>
+        <Route path="/" element={<Landing_page />}>
           <Route index element={<Home />} />
           <Route path="/AddContact" element={<AddContact />} />
           <Route path="/Contacts" element={<Contacts />} />
@@ -20,13 +24,11 @@ const App = () => {
         </Route>
       </Routes>
     </BrowserRouter>
+    </>
   );
 
 
 };
-
- 
-
 
 export default App;
 

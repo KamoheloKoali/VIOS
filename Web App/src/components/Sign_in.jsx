@@ -1,11 +1,19 @@
-import { SignIn, SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import './Sign_in.css';
+import Home from "./Home";
 
-const Sign_in = () => {
+export default function Sign_in() {
   return (
-    <div className="signin">  
-      <SignIn />
-    </div>
+    <header>
+      <SignedOut>
+        <SignInButton>
+          <button className="btnn">Login</button>
+        </SignInButton>
+      </SignedOut>
+      <SignedIn>
+        <Home/>
+        <UserButton />
+      </SignedIn>
+    </header>
   )
 }
-
-export default Sign_in
