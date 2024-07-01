@@ -1,4 +1,16 @@
-import React from 'react';
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+
+let reloadCount = sessionStorage.getItem('reloadCount');
+  reloadCount = reloadCount ? parseInt(reloadCount) : 0; // Convert to number or default to 0
+
+  // if (reloadCount < 1) {
+  //   reloadCount++; // Increment reloadCount
+  //   sessionStorage.setItem('reloadCount', String(reloadCount)); // Store updated value
+
+  //   window.location.reload(); // Reload the page
+  // } else {
+  //   sessionStorage.removeItem('reloadCount'); // Remove reloadCount if limit reached
+  // }
 
 const Profile = () => {
     
@@ -8,7 +20,7 @@ const Profile = () => {
         <h1 style={styles.title}>Profile</h1>
       </header>
       <div style={styles.profileImageContainer}>
-        <img src="./src/lgo.png" alt="Profile" style={styles.profileImage} />
+        <UserButton />
         <button style={styles.editButton}>Edit profile image</button>
       </div>
       <div style={styles.infoContainer}>
