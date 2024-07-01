@@ -15,7 +15,7 @@ const ViosApp: React.FC = () => {
       <Section id="home">
         <h2 className="text-4xl md:text-5xl font-bold mb-4">Empowering the Visually Impaired</h2>
         <p className="text-lg md:text-xl mb-4">Navigate through different environments and access the internet with ease.</p>
-        <Button text="Sign Up" />
+        
       </Section>
       <Section id="stats" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
         <Card title="10,000+" content="Users of our product" />
@@ -26,7 +26,6 @@ const ViosApp: React.FC = () => {
       <Section id="about">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">About Us</h2>
         <p className="text-lg md:text-xl mb-4">VIOS is dedicated to providing innovative solutions for the visually impaired, helping them navigate through different environments and access the internet with ease.</p>
-        <Image />
       </Section>
       <Section id="services" className="bg-zinc-100 text-zinc-800">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Explore What We Offer</h2>
