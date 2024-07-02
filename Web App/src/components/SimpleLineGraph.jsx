@@ -4,7 +4,7 @@ import 'chart.js/auto';
 // import fetchJSONData from '../extract';
 // import data from './pulseData.json';
 // import './SimpleLineGraph.css'; // Import the CSS file
-import jsonData from "./pulseData.json";
+import jsonData from "../pulseData.json";
 console.log(jsonData.age);
 const SimpleLineGraph = () => {
   const data = {
@@ -12,7 +12,7 @@ const SimpleLineGraph = () => {
     datasets: [
       {
         label: 'bpm',
-        data: [jsonData.age, 59, 87, 81, 56, 55, 40, 45, 70, 75, 90, 100],
+        data: [80, 59, 87, 81, 56, 55, 40, 45, 70, 75, 90, 100],
         fill: false,
         borderColor: '#007bff',
         tension: 0.1,

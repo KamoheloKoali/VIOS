@@ -18,8 +18,15 @@ ALLOWED_AUDIO_EXTENSIONS = {'mp3'}
 def allowed_file(filename, allowed_extensions):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_extensions
 
-@app.route('/<id>/<number>', methods=["GET"])
-def index(number):
+@app.route('/', methods=["GET", "POST"])
+def index():
+    data = request.get_json();
+    with open("heart_rate.json", "w", encoding="utf-8") as file:
+        json.dump(data, file)
+    return "data added"
+
+@app.route('/upload/<id>/<number>', methods=["POST", "GET"])
+def upload(id, number):
     data ={}
     data[id] = number
     with open("heart_rate.json", "w", encoding="utf-8") as file:
