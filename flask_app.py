@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, send_from_directory
 import json
 from werkzeug.utils import secure_filename
 import os
+import datetime
 
 from API.speech_to_text_endpoint import speech_to_text
 
@@ -20,9 +21,13 @@ def allowed_file(filename, allowed_extensions):
 
 @app.route('/', methods=["GET", "POST"])
 def index():
+    with open("heart_rate.json", "r", encoding="utf-8") as file:
+        file_data = json.load(file)
     data = request.get_json();
+    file_data["time_stamp"].append(datetime.datetime.now().strftime("%X"))
+    file_data["heart_rate"].append(data["heart_rate"])
     with open("heart_rate.json", "w", encoding="utf-8") as file:
-        json.dump(data, file)
+        json.dump(file_data, file)
     return "data added"
 
 @app.route('/upload/<id>/<number>', methods=["POST", "GET"])

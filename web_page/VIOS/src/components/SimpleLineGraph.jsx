@@ -4,15 +4,19 @@ import 'chart.js/auto';
 // import fetchJSONData from '../extract';
 // import data from './pulseData.json';
 // import './SimpleLineGraph.css'; // Import the CSS file
-import jsonData from "./pulseData.json";
-console.log(jsonData.age);
+import jsonData from "../../../../heart_rate.json";
+import { delay } from 'framer-motion';
+
+console.log(jsonData);
+
+
 const SimpleLineGraph = () => {
   const data = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    labels: jsonData.time_stamp,
     datasets: [
       {
         label: 'bpm',
-        data: [jsonData.age, 59, 87, 81, 56, 55, 40, 45, 70, 75, 90, 100],
+        data: jsonData.heart_rate,
         fill: false,
         borderColor: '#007bff',
         tension: 0.1,
@@ -30,7 +34,7 @@ const SimpleLineGraph = () => {
       x: {
         title: {
           display: true,
-          text: 'Month',
+          text: 'Time',
         },
       },
       y: {
