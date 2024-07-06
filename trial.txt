@@ -1,98 +1,352 @@
-import React from 'react';
+#include <TinyGsmClient.h>
+#include <HTTPClient.h>
+#include <SD.h>
+#include <SPI.h>
+#include <BluetoothA2DPSink.h>
+#include <BluetoothA2DPSource.h>
+#include <ArduinoJson.h>
 
-const sharedClasses = {
-  zincBg: 'bg-zinc-100',
-  zincText: 'text-zinc-800',
-  zincHover: 'hover:underline',
-  zincButton: 'bg-zinc-200 text-zinc-800 py-3 px-6 md:py-4 md:px-8 rounded-full hover:bg-zinc-200/80',
-  zincCard: 'bg-zinc-200 text-zinc-800 p-4 rounded-md shadow',
-};
+// Define the serial connections
+#define TINY_GSM_MODEM_SIM800
+#define MODEM_RST 5
+#define MODEM_PWRKEY 4
+#define MODEM_POWER_ON 23
+#define MODEM_TX 27
+#define MODEM_RX 26
+#define I2C_SDA 21
+#define I2C_SCL 22
 
-const Header = () => {
-  return (
-    <header className={`${sharedClasses.zincBg} ${sharedClasses.zincText} p-4 flex justify-between items-center`}>
-      <h1 className="text-3xl md:text-4xl font-bold">Welcome to VIOS</h1>
-      <nav>
-        <ul className="flex space-x-4">
-          <li><a href="#home" className={sharedClasses.zincHover}>Home</a></li>
-          <li><a href="#services" className={sharedClasses.zincHover}>Services</a></li>
-          <li><a href="#about" className={sharedClasses.zincHover}>About</a></li>
-          <li><a href="#contact" className={sharedClasses.zincHover}>Contact</a></li>
-        </ul>
-      </nav>
-    </header>
-  );
-};
+// Set serial for debug console (to Serial Monitor, default speed 115200)
+#define SerialMon Serial
 
-const Section = ({ id, children }) => {
-  return <section id={id} className={`${sharedClasses.zincBg} ${sharedClasses.zincText} p-8`}>{children}</section>;
-};
+// Use the hardware serial for communication with the SIM800 module
+HardwareSerial SerialAT(1); // Use UART1
 
-const Card = ({ title, content }) => {
-  return (
-    <div className={sharedClasses.zincCard}>
-      <h3 className="text-2xl md:text-3xl font-bold">{title}</h3>
-      <p>{content}</p>
-    </div>
-  );
-};
+// Define the GSM modem
+TinyGsm modem(SerialAT);
 
-const Image = () => {
-  return <img src="https://placehold.co/600x400" alt="Team working" className="mx-auto rounded-lg shadow-lg" />;
-};
+// Your GPRS credentials, if any
+const char apn[]  = "your-apn";
+const char gprsUser[] = "";
+const char gprsPass[] = "";
 
-const Button = ({ text }) => {
-  return <button className={sharedClasses.zincButton}>{text}</button>;
-};
+// Server URL
+const char* serverUrl = "http://yourserver.com/upload";
 
-const Footer = () => {
-  return (
-    <footer className={`${sharedClasses.zincBg} ${sharedClasses.zincText} p-4 text-center`}>
-      <p>&copy; 2023 VIOS. All rights reserved.</p>
-    </footer>
-  );
-};
+// SD card pin
+const int chipSelect = 5;
 
-const ViosApp = () => {
-  return (
-    <div className={`${sharedClasses.zincBg} ${sharedClasses.zincText}`}>
-      <Header />
-      <Section id="home">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4">Empowering the Visually Impaired</h2>
-        <p className="text-lg md:text-xl mb-4">Navigate through different environments and access the internet with ease.</p>
-        <Button text="Discover More" />
-      </Section>
-      <Section id="stats" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
-        <Card title="10,000+" content="Users of our product" />
-        <Card title="5,000+" content="Web app users" />
-        <Card title="4.8/5" content="Product reviews" />
-        <Card title="4.7/5" content="Web app reviews" />
-      </Section>
-      <Section id="about">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">About Us</h2>
-        <p className="text-lg md:text-xl mb-4">VIOS is dedicated to providing innovative solutions for the visually impaired, helping them navigate through different environments and access the internet with ease.</p>
-        <Image />
-      </Section>
-      <Section id="services" className="bg-zinc-100 text-zinc-800">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Explore What We Offer</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-6 bg-zinc-100 text-zinc-800 rounded-lg shadow">
-            <h3 className="text-xl md:text-2xl font-bold mb-2">Navigation Aid</h3>
-            <p>Helping the visually impaired navigate through different environments.</p>
-          </div>
-          <div className="p-6 bg-zinc-100 text-zinc-800 rounded-lg shadow">
-            <h3 className="text-xl md:text-2xl font-bold mb-2">Internet Access</h3>
-            <p>Providing easy access to the internet for the visually impaired.</p>
-          </div>
-          <div className="p-6 bg-zinc-100 text-zinc-800 rounded-lg shadow">
-            <h3 className="text-xl md:text-2xl font-bold mb-2">Communication App</h3>
-            <p>Connecting visually impaired individuals with their companions through calls and messages.</p>
-          </div>
-        </div>
-      </Section>
-      <Footer />
-    </div>
-  );
-};
+// File names
+const char* inputFileName = "/input.wav";
+const char* outputFileName = "/output.wav";
+const char* recordedFileName = "/recorded.wav";
 
-export default ViosApp;
+// Variable to store command from JSON response
+String command;
+
+// Create instances
+TinyGsm modem(Serial1);
+TinyGsmClient client(modem);
+HTTPClient http;
+BluetoothA2DPSink a2dp_sink;
+BluetoothA2DPSource a2dp_source;
+
+// Forward declaration of functions
+bool sendAudioFile(const char* filename);
+void playAudioFile(const char* filename);
+void recordAudioFile(const char* filename);
+
+// std::vector<char> readFile(const std::string& filename) {
+//     std::ifstream file(filename, std::ios::binary);
+//     if (!file) {
+//         throw std::runtime_error("Could not open file: " + filename);
+//     }
+//     return std::vector<char>((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+// }
+
+// // Callback function to write the received data to a vector
+// size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp) {
+//     size_t totalSize = size * nmemb;
+//     std::vector<char>* buffer = (std::vector<char>*)userp;
+//     buffer->insert(buffer->end(), (char*)contents, (char*)contents + totalSize);
+//     return totalSize;
+// }
+
+/**
+ * recordAudioFile - records command from the user
+ * @filename - where to save the recorded audio
+ */
+
+void recordAudioFile(const char* filename) {
+    File file = SD.open(filename, FILE_WRITE);
+    if (!file) {
+        Serial.println("Failed to open file for recording");
+        return;
+    }
+
+    // Buffer to store incoming audio data
+    uint8_t data[512];
+    size_t bytesRead;
+
+    // Start Bluetooth A2DP Source to capture audio
+    a2dp_source.start("ESP32_AudioSource");
+
+    // Capture audio for a specified duration (e.g., 10 seconds)
+    unsigned long startTime = millis();
+    unsigned long duration = 10000; // 10 seconds
+
+    while (millis() - startTime < duration) {
+        bytesRead = a2dp_source.read_data(data, 512);
+        if (bytesRead > 0) {
+            file.write(data, bytesRead);
+        }
+    }
+
+    a2dp_source.stop();
+    file.close();
+    Serial.println("Recording finished");
+}
+
+/**
+ * con_to_sim - connects to sim card
+ */
+
+void con_to_sim() 
+{
+    // Set GSM module baud rate
+    Serial1.begin(9600, SERIAL_8N1, MODEM_RX, MODEM_TX);
+
+    // Initialize the modem
+    Serial.println("Initializing modem...");
+    pinMode(MODEM_PWRKEY, OUTPUT);
+    pinMode(MODEM_POWER_ON, OUTPUT);
+    digitalWrite(MODEM_PWRKEY, HIGH);
+    digitalWrite(MODEM_POWER_ON, HIGH);
+
+    // Restart takes quite some time
+    // To skip it, call init() instead of restart()
+    modem.restart();
+
+    // Unlock your SIM card with a PIN if needed
+    // modem.simUnlock("1234");
+
+    Serial.println("Waiting for network...");
+    if (!modem.waitForNetwork()) {
+        Serial.println("Network connection failed");
+        return;
+    }
+
+    Serial.println("Connecting to network...");
+    if (!modem.gprsConnect(apn, gprsUser, gprsPass)) {
+        Serial.println("GPRS connection failed");
+        return;
+    }
+
+    Serial.println("Connected to network");
+}
+
+/**
+ * sendAudioFile - sends the audio file to the server
+ * @filename - name of the file to send
+ * returns - bool
+ */
+
+bool sendAudioFile(const char* filename) {
+    File file = SD.open(filename, FILE_READ);
+    if (!file) {
+        Serial.println("Failed to open file for sending");
+        return false;
+    }
+
+    // Create buffer for file data
+    size_t fileSize = file.size();
+    uint8_t* buffer = (uint8_t*)malloc(fileSize);
+    file.read(buffer, fileSize);
+    file.close();
+
+    http.begin(client, serverUrl);
+    http.addHeader("Content-Type", "audio/wav");
+
+    // Send POST request
+    int httpResponseCode = http.POST(buffer, fileSize);
+    free(buffer);
+
+    if (httpResponseCode > 0) {
+        Serial.printf("HTTP Response code: %d\n", httpResponseCode);
+
+        // Get the response payload
+        WiFiClient* stream = http.getStreamPtr();
+        String response = "";
+        while (stream->available()) {
+            response += char(stream->read());
+        }
+
+        // Parse JSON response
+        StaticJsonDocument<200> doc;
+        DeserializationError error = deserializeJson(doc, response);
+        if (error) {
+            Serial.print(F("deserializeJson() failed: "));
+            Serial.println(error.f_str());
+            return false;
+        }
+
+        // Extract command value from JSON
+        if (doc.containsKey("command")) {
+            command = doc["command"].as<String>();
+            Serial.print("Command: ");
+            Serial.println(command);
+        }
+
+        // Save the audio file if present in response
+        if (doc.containsKey("audio")) {
+            File outputFile = SD.open(outputFileName, FILE_WRITE);
+            if (outputFile) {
+                size_t len = stream->available();
+                while (len > 0) {
+                    uint8_t buf[128];
+                    size_t size = stream->readBytes(buf, ((len > 128) ? 128 : len));
+                    outputFile.write(buf, size);
+                    len = stream->available();
+                }
+                outputFile.close();
+                Serial.println("Received and saved response audio file");
+
+                // Play the received audio file via Bluetooth
+                playAudioFile(outputFileName);
+            } else {
+                Serial.println("Failed to open output file");
+            }
+        }
+    } else {
+        Serial.printf("HTTP POST failed, error: %s\n", http.errorToString(httpResponseCode).c_str());
+    }
+
+    http.end();
+    return (httpResponseCode > 0);
+}
+
+/**
+ * send_command - sends a command from user to  server
+ */
+
+void send_command() {
+// Create instances
+TinyGsm modem(Serial1);
+TinyGsmClient client(modem);
+HTTPClient http;
+
+con_to_sim()
+
+ // Initialize SD card
+    if (!SD.begin(chipSelect)) {
+        Serial.println("Card Mount Failed");
+        return;
+    }
+
+    // Initialize Bluetooth A2DP Sink
+    a2dp_sink.start("ESP32_AudioSink");
+
+    // Record audio from Bluetooth headset
+    recordAudioFile(recordedFileName);
+
+    // Send the recorded audio file to the server
+    if (!sendAudioFile(recordedFileName)) {
+        Serial.println("Failed to send recorded audio file");
+    }
+
+    // Disconnect
+    modem.gprsDisconnect();
+    Serial.println("GPRS disconnected");
+}
+
+/**
+ * playAudioFile - plays audio file from server to user
+ */
+
+void playAudioFile(const char* filename) {
+    File file = SD.open(filename);
+    if (!file) {
+        Serial.println("Failed to open file for playback");
+        return;
+    }
+
+    // Initialize Bluetooth A2DP Sink
+    a2dp_sink.start("ESP32_Audio");
+
+    size_t bytesRead;
+    uint8_t data[512];
+    while ((bytesRead = file.read(data, 512)) > 0) {
+        a2dp_sink.write_data(data, bytesRead);
+    }
+
+    file.close();
+    Serial.println("Playback finished");
+}
+
+
+/**
+ * make_call - transmits a call to specified number
+ * @number - number to be called
+ */
+
+void make_call(String number) 
+{
+    // Set GSM module baud rate
+  SerialAT.begin(9600, SERIAL_8N1, MODEM_RX, MODEM_TX);
+  delay(3000);
+
+  // Restart the modem
+  SerialMon.println("Initializing modem...");
+  modem.restart();
+
+  // Unlock your SIM card with a PIN if needed
+  // modem.simUnlock("1234");
+
+  // Check signal quality
+  SerialMon.println("Checking signal quality...");
+  SerialAT.println("AT+CSQ");
+  delay(1000);
+  while (SerialAT.available()) {
+    SerialMon.write(SerialAT.read());
+  }
+
+  // Wait for network connection
+  SerialMon.println("Waiting for network...");
+  if (!modem.waitForNetwork()) {
+    SerialMon.println("Failed to connect to network");
+    while (true);
+  }
+  SerialMon.println("Network connected");
+
+  // Initiate a call
+  String number = number; 
+
+  SerialMon.println("Calling " + number);
+  modem.callNumber(number);
+
+  delay(20000); // Call duration in milliseconds, adjust as needed
+
+  // Hang up the call using AT command
+  SerialMon.println("Ending call");
+  SerialAT.println("ATH");
+  delay(1000); // Wait for the command to be processed
+  SerialMon.println("Call ended");
+}
+
+/**
+ * setup - entry point
+ */
+
+void setup() {
+  // Set console baud rate
+  SerialMon.begin(115200);
+  delay(10);
+}
+
+/**
+ * forever loop
+ */
+
+void loop() {
+  // Do nothing in loop
+}
