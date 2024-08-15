@@ -13,7 +13,7 @@ db = SQLAlchemy()
 
 db.init(app)
 
-app.config["DATABASE_URI"]
+app.config["DATABASE_URI"] = ""
 
 with app.app_context():
     db.create_all()
