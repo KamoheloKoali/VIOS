@@ -84,21 +84,21 @@ def speech():
 def create():
     return create_user(request.get_json())
 
-@app.route("/user/<id>", methods=["GET"])
-def get(id):
-    return get_user(id)
+@app.route("/user/<user_type>/<id>", methods=["GET"])
+def get(user_type, id):
+    return get_user(user_type, id)
     
-@app.route("/users", methods=["GET"])
+@app.route("/users/<user_type>", methods=["GET"])
 def get_all():
     return get_users()
     
-@app.route("/update_user/<id>", methods=["POST"])
-def update(id):
-    return update_user(id, request.get_json())
+@app.route("/update_user/<user_type>/<id>", methods=["POST"])
+def update(user_type, id):
+    return update_user(user_type, id, request.get_json())
 
-@app.route("/delete_user/<id>", methods=["POST"])
-def delete(id):
-    return delete_user(id)
+@app.route("/delete_user/<user_type>/<id>", methods=["POST"])
+def delete(user_type, id):
+    return delete_user(user_type, id)
 
 if __name__ == '__main__':
     app.run(debug=True, threaded=True)
