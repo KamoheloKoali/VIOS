@@ -1,4 +1,4 @@
-from flask_app import db
+from create_app_db import db
 from Models.users import device_user, kith_and_kin 
 
 def get_data_from_db(table, id=None):

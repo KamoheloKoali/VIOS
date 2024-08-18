@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify, send_from_directory
-from flask_sqlalchemy import SQLAlchemy
 import json
 from werkzeug.utils import secure_filename
 import os
@@ -7,13 +6,19 @@ import datetime
 
 from API.speech_to_text_endpoint import speech_to_text
 from views.user_views import create_user, get_user, get_users, update_user, delete_user
+from dotenv import load_dotenv
+from create_app_db import db, init_db
+
+load_dotenv(dotenv_path='.env.local')
+db_user = os.getenv("DB_USER")
+db_password = os.getenv("DB_PASS")
+db_name = os.getenv("DB_NAME")
 
 app = Flask(__name__)
-db = SQLAlchemy()
+app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+pymysql://{db_user}:{db_password}@localhost/{db_name}"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-db.init(app)
-
-app.config["DATABASE_URI"] = ""
+init_db(app)
 
 with app.app_context():
     db.create_all()

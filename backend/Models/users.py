@@ -1,26 +1,25 @@
-"""
-    This module contains the tables for users in the database
-"""
-from flask_app import db
+from create_app_db import db
 from datetime import datetime, timezone
 
 class device_user(db.Model):
     """
-        table of people who use our device
+        Table of people who use our device.
     """
 
     __tablename__ = "device_user"
     __table_args__ = {'extend_existing': True}
 
+    user_id = db.Column(db.String(120), nullable=False, primary_key=True)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     age = db.Column(db.Integer, nullable=False)
     email = db.Column(db.String(120), nullable=False)
-    user_id = db.Column(db.String(120), nullable=False, primary_key=True)
     device_id = db.Column(db.String(120), nullable=False)
-    contacts = db.Column(db.Integer, db.ForeignKey("kith_and_kin.user_id"))
     created_at = db.Column(db.DateTime, default=datetime.now(tz=timezone.utc))
-    
+
+    # Relationship to kith_and_kin
+    kith_and_kin_contacts = db.relationship('KithAndKin', backref='device_user', lazy=True)
+
     def save_to_db(self):
         """Saves the user information to the database."""
         db.session.add(self)
@@ -39,25 +38,25 @@ class device_user(db.Model):
             "email": self.email,
             "userId": self.user_id,
             "deviceId": self.device_id,
-            "contacts": [dict(contact) for contact in self.contacts],
+            "contacts": [dict(contact) for contact in self.kith_and_kin_contacts],
             "createdAt": str(self.created_at)
         }
 
 class kith_and_kin(db.Model):
     """
-        table of friends and family of people who use our device
+        Table of friends and family of people who use our device.
     """
     
     __tablename__ = "kith_and_kin"
 
+    user_id = db.Column(db.String(120), nullable=False, primary_key=True)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     age = db.Column(db.Integer, nullable=False)
     email = db.Column(db.String(120), nullable=False)
-    user_id = db.Column(db.String(120), nullable=False, primary_key=True)
-    contacts = db.Column(db.Integer, db.ForeignKey("device_user.user_id"))
+    contacts_user_id = db.Column(db.String(120), db.ForeignKey("device_user.user_id"))
     created_at = db.Column(db.DateTime, default=datetime.now(tz=timezone.utc))
-    
+
     def save_to_db(self):
         """Saves the user information to the database."""
         db.session.add(self)
@@ -75,6 +74,6 @@ class kith_and_kin(db.Model):
             "age": self.age,
             "email": self.email,
             "userId": self.user_id,
-            "contacts": [dict(contact) for contact in self.contacts],
+            "contacts": self.contacts_user_id,
             "createdAt": str(self.created_at)
         }
