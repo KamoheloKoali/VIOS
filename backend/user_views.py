@@ -63,3 +63,5 @@ def delete_user(user_type, id):
     user.delete_from_db()
     
     return "user deleted successfully", 201
+
+
