@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, send_from_directory
+from flask_cors import CORS
 import json
 from werkzeug.utils import secure_filename
 import os
@@ -15,8 +16,11 @@ db_password = os.getenv("DB_PASS")
 db_name = os.getenv("DB_NAME")
 
 app = Flask(__name__)
+CORS(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+pymysql://{db_user}:{db_password}@localhost/{db_name}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+
 
 init_db(app)
 
