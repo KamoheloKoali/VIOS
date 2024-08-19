@@ -29,21 +29,32 @@ with app.app_context():
 
 
 # Define your React app's build directory
-react_folder = 'Web App'
-directory = os.path.join(os.getcwd(), react_folder, 'dist', 'assets')
+frontend_dist_folder = os.path.join(os.getcwd(), "..", "frontend", "dist")
 
 # Define allowed extensions
 ALLOWED_IMAGE_EXTENSIONS = {'jpeg', 'jpg', 'png'}
 ALLOWED_AUDIO_EXTENSIONS = {'mp3'}
 
+
 def allowed_file(filename, allowed_extensions):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_extensions
 
-@app.route('/', methods=["GET", "POST"])
-def index():
+# serve webpage
+
+@app.route("/", defaults={"filename":""})
+@app.route("/<path:filename>")
+def home(filename):
+    if not filename:
+        filename = "index.html"
+    return send_from_directory(frontend_dist_folder, filename), 200
+
+# routes
+
+@app.route('/upload', methods=["GET", "POST"])
+def upload_heart_rate_data():
     with open("heart_rate.json", "r", encoding="utf-8") as file:
         file_data = json.load(file)
-    data = request.get_json();
+    data = request.get_json()
     file_data["time_stamp"].append(datetime.datetime.now().strftime("%X"))
     file_data["heart_rate"].append(data["heart_rate"])
     with open("heart_rate.json", "w", encoding="utf-8") as file:
@@ -58,20 +69,10 @@ def upload(id, number):
         json.dump(data, file)
     return jsonify({"data entered": data})
 
-    # ''' Serve the main page '''
-    # path = os.path.join(os.getcwd(), react_folder, 'dist')
-    # return send_from_directory(directory=path, path='index.html')
-
 @app.route('/data', methods=["GET"])
 def data():
     with open("heart_rate.json", "r", encoding="utf-8") as file:
         return jsonify(json.load(file))
-
-@app.route('/static/<folder>/<file>', methods=["GET"])
-def serve_static(folder, file):
-    path = os.path.join(folder, file)
-    return send_from_directory(directory=directory, path=path, mimetype='application/javascript')
-
 
 @app.route('/speech', methods=["POST"])
 def speech():
