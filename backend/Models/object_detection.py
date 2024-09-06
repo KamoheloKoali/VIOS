@@ -4,16 +4,17 @@ from ultralytics import YOLO
 import json
 from datetime import datetime
 import os
+from Models.image_reader import read_text
 
 # Load the pre-trained YOLOv8 model
 model = YOLO("yolov8s.pt")
 
-def get_details(results):
+def get_details(results, image):
     """
     Extracts the names, confidence, and bounding boxes for detected objects.
     """
     if not results or len(results) == 0:
-        return
+        return None
 
     class_names = results[0].names  # Names are stored in results[0].names
 
@@ -31,6 +32,9 @@ def get_details(results):
             y = int(bounding_box[1])
             width = int(bounding_box[2] - x)
             height = int(bounding_box[3] - y)
+            print(name)
+            if name in ["screen", "computer", "keyboard", "paper", "monitor", "laptop"]:
+                read_text(image)
 
             # Return the detected object details
             yield name, {
@@ -51,15 +55,17 @@ def detect_objects_yolov8(image):
 
     # Prepare detection data for JSON output
     detection_data = {'objects': []}
+    details = get_details(results, image)
 
     # Use the get_names function to extract detection information
-    for name, info in get_details(results):
-        detection_data['objects'].append({
-            'name': name,
-            'box': info['box'],
-            'confidence': info['confidence'],
-            'percentage_confidence': info['confidence'] * 100
-        })
+    if details is not None:
+        for name, info in details:
+            detection_data['objects'].append({
+                'name': name,
+                'box': info['box'],
+                'confidence': info['confidence'],
+                'percentage_confidence': info['confidence'] * 100
+            })
 
     # File to store detection results
     json_file = "results_from_detection_model.json"

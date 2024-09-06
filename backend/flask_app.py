@@ -12,6 +12,7 @@ import datetime
 from API.speech_to_text_endpoint import speech_to_text
 from user_views import create_user, get_user, get_users, update_user, delete_user
 from Models.object_detection import detect_objects_yolov8
+from Models.image_reader import read_text
 from dotenv import load_dotenv
 from create_app_db import db, init_db
 

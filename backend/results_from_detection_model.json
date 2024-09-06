@@ -1,253 +1,42 @@
 {
-    "2024-09-05 16:47:42": {
+    "2024-09-06 11:36:56": {
         "objects": [
             {
                 "name": "person",
                 "box": [
-                    571,
-                    138,
-                    68,
-                    69
+                    207,
+                    50,
+                    430,
+                    429
                 ],
-                "confidence": 0.4535025954246521,
-                "percentage_confidence": 45.35025954246521
-            },
-            {
-                "name": "microwave",
-                "box": [
-                    381,
-                    55,
-                    191,
-                    158
-                ],
-                "confidence": 0.3352884352207184,
-                "percentage_confidence": 33.52884352207184
-            },
-            {
-                "name": "person",
-                "box": [
-                    80,
-                    174,
-                    31,
-                    69
-                ],
-                "confidence": 0.3152196705341339,
-                "percentage_confidence": 31.52196705341339
+                "confidence": 0.4311991035938263,
+                "percentage_confidence": 43.11991035938263
             }
         ]
     },
-    "2024-09-05 16:47:52": {
+    "2024-09-06 11:40:39": {
         "objects": [
             {
                 "name": "person",
                 "box": [
-                    81,
-                    174,
-                    31,
-                    72
+                    202,
+                    48,
+                    433,
+                    431
                 ],
-                "confidence": 0.49733930826187134,
-                "percentage_confidence": 49.733930826187134
+                "confidence": 0.5244315266609192,
+                "percentage_confidence": 52.44315266609192
             },
             {
-                "name": "person",
+                "name": "keyboard",
                 "box": [
-                    570,
-                    138,
-                    69,
-                    69
-                ],
-                "confidence": 0.36682626605033875,
-                "percentage_confidence": 36.682626605033875
-            },
-            {
-                "name": "microwave",
-                "box": [
-                    381,
-                    55,
-                    191,
-                    159
-                ],
-                "confidence": 0.3007795512676239,
-                "percentage_confidence": 30.07795512676239
-            }
-        ]
-    },
-    "2024-09-05 16:47:59": {
-        "objects": [
-            {
-                "name": "microwave",
-                "box": [
-                    381,
-                    55,
-                    191,
-                    161
-                ],
-                "confidence": 0.2789885103702545,
-                "percentage_confidence": 27.89885103702545
-            },
-            {
-                "name": "person",
-                "box": [
-                    80,
-                    174,
-                    32,
-                    67
-                ],
-                "confidence": 0.25856804847717285,
-                "percentage_confidence": 25.856804847717285
-            }
-        ]
-    },
-    "2024-09-05 16:48:07": {
-        "objects": [
-            {
-                "name": "person",
-                "box": [
-                    571,
-                    138,
-                    68,
-                    69
-                ],
-                "confidence": 0.5094638466835022,
-                "percentage_confidence": 50.94638466835022
-            },
-            {
-                "name": "person",
-                "box": [
-                    81,
-                    174,
-                    31,
-                    69
-                ],
-                "confidence": 0.3881509602069855,
-                "percentage_confidence": 38.81509602069855
-            }
-        ]
-    },
-    "2024-09-05 16:48:15": {
-        "objects": [
-            {
-                "name": "person",
-                "box": [
-                    570,
-                    138,
-                    69,
-                    69
-                ],
-                "confidence": 0.4843723177909851,
-                "percentage_confidence": 48.43723177909851
-            },
-            {
-                "name": "person",
-                "box": [
-                    79,
-                    174,
-                    33,
-                    63
-                ],
-                "confidence": 0.4097845256328583,
-                "percentage_confidence": 40.97845256328583
-            },
-            {
-                "name": "microwave",
-                "box": [
-                    381,
-                    55,
-                    191,
-                    158
-                ],
-                "confidence": 0.3718194365501404,
-                "percentage_confidence": 37.18194365501404
-            }
-        ]
-    },
-    "2024-09-05 16:48:23": {
-        "objects": [
-            {
-                "name": "person",
-                "box": [
-                    81,
-                    174,
-                    31,
-                    70
-                ],
-                "confidence": 0.37669143080711365,
-                "percentage_confidence": 37.669143080711365
-            },
-            {
-                "name": "microwave",
-                "box": [
-                    380,
-                    56,
-                    192,
-                    153
-                ],
-                "confidence": 0.33732980489730835,
-                "percentage_confidence": 33.732980489730835
-            }
-        ]
-    },
-    "2024-09-05 16:48:30": {
-        "objects": [
-            {
-                "name": "person",
-                "box": [
-                    570,
-                    138,
-                    69,
-                    69
-                ],
-                "confidence": 0.7527565360069275,
-                "percentage_confidence": 75.27565360069275
-            },
-            {
-                "name": "microwave",
-                "box": [
-                    381,
-                    56,
-                    191,
-                    155
-                ],
-                "confidence": 0.4713380038738251,
-                "percentage_confidence": 47.13380038738251
-            },
-            {
-                "name": "person",
-                "box": [
-                    79,
-                    174,
-                    31,
-                    38
-                ],
-                "confidence": 0.2926481366157532,
-                "percentage_confidence": 29.264813661575317
-            }
-        ]
-    },
-    "2024-09-05 16:48:37": {
-        "objects": [
-            {
-                "name": "person",
-                "box": [
-                    570,
+                    127,
+                    455,
                     137,
-                    69,
-                    70
+                    24
                 ],
-                "confidence": 0.7534975409507751,
-                "percentage_confidence": 75.34975409507751
-            },
-            {
-                "name": "person",
-                "box": [
-                    82,
-                    171,
-                    30,
-                    70
-                ],
-                "confidence": 0.41926100850105286,
-                "percentage_confidence": 41.926100850105286
+                "confidence": 0.3038727045059204,
+                "percentage_confidence": 30.38727045059204
             }
         ]
     }
