@@ -8,7 +8,7 @@ const Navbar = () => {
 
 	return (
 		<nav className=''>
-			<div className=' top-0 absolute container mx-14 flex items-center justify-between  outline-dotted p-4 outline-stone-700 '>
+			<div className=' top-0 absolute container mx-14 flex items-center justify-between p-4'>
 				<span className=' text-4xl sm:text-4xl md:text-4xl lg:text-4xl xl:text-5xl font-inter font-light text-black'>
 					VIOS
 				</span>
