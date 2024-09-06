@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@clerk/nextjs": "^5.3.2",
     "@nextui-org/button": "2.0.37",
     "@nextui-org/code": "2.0.32",
     "@nextui-org/input": "2.2.4",

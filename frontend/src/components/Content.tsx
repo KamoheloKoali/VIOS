@@ -17,9 +17,11 @@ export default function Content() {
         </div>
 
         <div className="absolute top-[763px] left-16">
+          <a href="/Login">
           <button className="w-52 h-14 bg-pink-300 bg-opacity-50 rounded-full text-2xl font-inter text-black">
             Sign Up
           </button>
+          </a>
         </div>
 
         <div className="absolute top-[25%] left-[70%] w-52 h-48 bg-pink-500 bg-opacity-50"></div>
