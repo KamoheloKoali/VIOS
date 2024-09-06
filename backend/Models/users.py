@@ -12,8 +12,8 @@ class device_user(db.Model):
     user_id = db.Column(db.String(120), nullable=False, primary_key=True)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
-    age = db.Column(db.Integer, nullable=False)
     email = db.Column(db.String(120), nullable=False)
+    password = db.Column(db.String(120), nullable=False)
     device_id = db.Column(db.String(120), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now(tz=timezone.utc))
 
@@ -34,7 +34,6 @@ class device_user(db.Model):
         return {
             "firstName": self.first_name,
             "lastName": self.last_name,
-            "age": self.age,
             "email": self.email,
             "userId": self.user_id,
             "deviceId": self.device_id,
@@ -52,8 +51,8 @@ class kith_and_kin(db.Model):
     user_id = db.Column(db.String(120), nullable=False, primary_key=True)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
-    age = db.Column(db.Integer, nullable=False)
     email = db.Column(db.String(120), nullable=False)
+    password = db.Column(db.String(120), nullable=False)
     contacts_user_id = db.Column(db.String(120), db.ForeignKey("device_user.user_id"))
     created_at = db.Column(db.DateTime, default=datetime.now(tz=timezone.utc))
 
@@ -71,7 +70,6 @@ class kith_and_kin(db.Model):
         return {
             "firstName": self.first_name,
             "lastName": self.last_name,
-            "age": self.age,
             "email": self.email,
             "userId": self.user_id,
             "contacts": self.contacts_user_id,
