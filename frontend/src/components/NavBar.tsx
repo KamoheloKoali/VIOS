@@ -23,7 +23,7 @@ const Navbar = () => {
 						className='text-2xl font-inter text-black hover:text-gray-700'>
 						Dashboard
 					</Link>
-					<Link
+					{/* <Link
 						href='/'
 						className='text-2xl font-inter text-black hover:text-gray-700'>
 						Profile
@@ -37,7 +37,7 @@ const Navbar = () => {
 						href='contact-us'
 						className='text-2xl font-inter text-black hover:text-gray-700'>
 						Contact Us
-					</Link>
+					</Link> */}
 				</div>
 				<button
 					className='md:hidden text-black focus:outline-none'
