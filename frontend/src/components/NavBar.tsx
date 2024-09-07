@@ -59,17 +59,17 @@ const Navbar = () => {
 			<div className={`md:hidden ${isMenuOpen ? "block" : "hidden"}`}>
 				{/* Mobile menu */}
 				<div className='flex flex-col items-center py-4'>
-					<a
-						href='#'
+					<Link
+						href='/'
 						className='text-2xl font-inter text-black hover:text-gray-700 py-2'>
 						Home
-					</a>
-					<a
-						href='#'
+					</Link>
+					<Link
+						href='dashboard'
 						className='text-2xl font-inter text-black hover:text-gray-700 py-2'>
 						Dashboard
-					</a>
-					<a
+					</Link>
+					{/* <a
 						href='#'
 						className='text-2xl font-inter text-black hover:text-gray-700 py-2'>
 						Profile
@@ -83,7 +83,7 @@ const Navbar = () => {
 						href='#'
 						className='text-2xl font-inter text-black hover:text-gray-700 py-2'>
 						Contact Us
-					</a>
+					</a> */}
 				</div>
 			</div>
 		</nav>
