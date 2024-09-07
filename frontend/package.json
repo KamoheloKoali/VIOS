@@ -13,7 +13,8 @@
     "next": "14.2.7",
     "no-case": "^4.0.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-router-dom": "^6.26.1"
   },
   "devDependencies": {
     "@types/node": "^20",
