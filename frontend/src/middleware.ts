@@ -4,6 +4,7 @@ const isPrivateRoute = createRouteMatcher(["/dashboard", "/dashboard(.*)"]);
 
 export default clerkMiddleware((auth, request) => {
 	if (isPrivateRoute(request)) {
+		console.log('Protecting route:', request.url);
 		auth().protect();
 	}
 });
